@@ -9,7 +9,7 @@ async def main():
         result = await asyncio.wait_for(asyncio.shield(delay_task), timeout=2)
         print(result)    # Ничего не будет напечатано
     except exceptions.TimeoutError:
-        print('Timeout!!!')
+        print('Задача заняла более двух секунд, скоро она закончится')
         print(delay_task.done(), delay_task.cancelled())    # False False (благодаря shield произошла остановка, а не отмена)
 
         result = await delay_task    # запуск задачи без таймаута (начнется с момента, где была остановлена задача)
@@ -17,7 +17,7 @@ async def main():
 
 
 asyncio.run(main())
-# Засыпаю на 7 сек.
+# Задача заняла более двух секунд, скоро она закончится
 # Timeout!!!
 # False False
 # Сон в течение 7 сек. закончился (можно заметить, что функция началась не с начала)
